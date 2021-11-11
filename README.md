@@ -6,7 +6,9 @@ The tool uses the same principle as QRpedia. However, we have updated the projec
 * A Web Service implemented in [Python](https://www.python.org) with [Flask](https://en.wikipedia.org/wiki/Flask_(web_framework)) to redirect the user to the audio recording of the Wikipedia article about the monument in the language of the web browser of the mobile device. The input here is the Wikidata ID of the monument. The Web Service will retrieve the language of the web browser of the user. Then, it will find the URL of the audio recording in the considered language using a SPARQL query on [spoken text audio](https://www.wikidata.org/wiki/Property:P407) statements of Wikidata. If the file exists, the user will be redirected to the audio. If it does not exist, the user will be redirected to an error message.
 
 As a future direction for Sawtpedia, we can redirect to the user to a [text-to-speech system](https://meta.wikimedia.org/wiki/Wikispeech) that reads the Wikipedia article in the user language when an audio recording does not exist in Wikimedia Commons.
-
+## Requirements
+* Flask
+* 
 ## Team
 * **[Yamen Bousrih](https://meta.wikimedia.org/wiki/User:Yamen)**, *Original idea*
 * **[Houcemeddine Turki](https://meta.wikimedia.org/wiki/User:Csisc)**, *Tool Development*
