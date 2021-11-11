@@ -7,8 +7,9 @@ The tool uses the same principle as QRpedia. However, we have updated the projec
 
 As a future direction for Sawtpedia, we can redirect to the user to a [text-to-speech system](https://meta.wikimedia.org/wiki/Wikispeech) that reads the Wikipedia article in the user language when an audio recording does not exist in Wikimedia Commons.
 ## Requirements
-* Flask
-* 
+* [Flask](https://pypi.org/project/Flask/) 2.0.2
+* [Requests](https://pypi.org/project/requests/) 2.26.0
+* [SPARQLWrapper](https://pypi.org/project/SPARQLWrapper/) 1.8.5
 ## Team
 * **[Yamen Bousrih](https://meta.wikimedia.org/wiki/User:Yamen)**, *Original idea*
 * **[Houcemeddine Turki](https://meta.wikimedia.org/wiki/User:Csisc)**, *Tool Development*
