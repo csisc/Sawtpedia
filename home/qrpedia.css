@@ -1,0 +1,164 @@
+html, body
+{
+	width: 100%;
+	height: 100%;
+	background: #bbc5cd;
+}
+body
+{
+	/* For vertical centring */
+	display: table;
+	height: 100%;
+	width: 100%;
+	background: url('../images/bg.png') repeat-x;
+	margin: 0;
+}
+img
+{
+	border: 0;
+}
+*
+{
+	font-family: "Helvetica", "Arial", sans-serif;
+	font-size: 15px;
+}
+#wrapper
+{
+	background: url('../images/small_bg_world.png') no-repeat center;
+
+	width: 100%;
+	
+	text-align: center; /* IE */
+	
+	/* For vertical centring */
+	display: table-cell;
+	vertical-align: middle;
+}
+#inner_wrapper
+{
+	width: 420px;
+	height: 490px;
+	margin: 0 auto;
+	text-align: left; /* IE */
+}
+#panel
+{
+	height: 470px;
+}
+#title
+{
+	text-align: center;
+	font-weight: bold;
+	color: #296d94;
+	font-size: 22px;
+	text-shadow: #f4f4ea 0 2px 0;
+}
+
+#title a
+{
+	text-align: center;
+	font-weight: bold;
+	color: #296d94;
+	font-size: 22px;
+	text-shadow: #f4f4ea 0 2px 0;
+	text-decoration: underline;
+}
+
+#bottom
+{
+	text-align: center;
+	font-weight: bold;
+	color: #296d94;
+	font-size: 22px;
+	text-shadow: #f4f4ea 0 2px 0;
+}
+
+#bottom a
+{
+	text-align: center;
+	font-weight: bold;
+	color: #296d94;
+	font-size: 22px;
+	text-shadow: #f4f4ea 0 2px 0;
+	text-decoration: underline;
+}
+
+#language_area
+{
+	text-align: center;
+	font-weight: bold;
+}
+
+#statistics_area
+{
+	text-align: center;
+	font-weight: bold;
+}
+
+#panel_content
+{
+	margin-left: 25px;
+	padding-top: 22px;
+	width: 370px;
+}
+
+#qr
+{
+	padding-left: 12px;
+	
+}
+
+#qr_area
+{
+	height: 360px;
+	padding-top: 10px;
+	background-color: #FFFFFF;
+	border-radius: 20px 20px 0px 0px;
+}
+#qr_area #qr_image
+{
+	width: 330px;
+	height: 340px;
+	overflow: hidden;
+	/*padding-left: 10px;*/
+}
+#qr_area #qr_image #image
+{
+	margin-top: -25px;
+	margin-left: -25px;
+	
+	width: 400px;
+	height: 400px;
+	text-indent: -2000px;
+	overflow: hidden;
+}
+#qr_area #qr_image img
+{
+	margin-top: -25px;
+	margin-left: -25px;
+}
+#url_area
+{
+	height: 55px;
+}
+#url_area #url
+{
+
+	padding: 0;
+	width: 100%;
+	height: 55px;
+	border: 0;
+	outline: 0;
+	text-align: center;
+	font-size: 18px;
+	color: #000000;
+	background: #F0F0F0;
+	border-radius: 0px 0px 20px 20px;
+}
+#menu {
+    display: none;
+    position: absolute;
+    padding: 10px;
+    background-color: #ddd;
+    border: 1px solid #000;
+}
