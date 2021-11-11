@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<title>Sawtpedia - Language-detecting &amp; mobile-friendly Spoken Wikipedia QR codes</title>
+		<link href="./home/qrpedia.css" rel="stylesheet" type="text/css">
+	</head>
+
+	<body>
+		<div id="wrapper">
+			<div id="inner_wrapper">
+				<div id="title">
+					<a href="https://hack4openglam.okf.fi/tools/audioqrpedia/" target="_blank" class="title">What Is Sawtpedia?</a>
+				</div>
+				<div id="panel">
+				
+					<div id="panel_content">
+						<div id="qr_area">
+							<div id="image">
+								<a id="download" class="download">
+									<img class="qr" id="qr" src="./home/welcome_qr.png" width="345" height="345" alt="Paste a Wikipedia URL into the box below to create a language-detecting mobile-friendly QR code">
+								</a>
+							</div>
+						</div>
+						
+						<div id="url_area">
+							<form id="target" action="https://qrpedia.org/" method="get">
+								<textarea class="url" id="url" rows="2" autofocus="" placeholder="Paste your Wikipedia URL here"></textarea>
+							</form>
+						</div>
+						
+					</div>
+					
+				</div>
+				
+				<div id="language_area" class="language_area">&nbsp;
+				</div>
+				
+				<div id="statistics_area" class="statistics_area">&nbsp;
+				</div>
+						
+				<div id="bottom">
+					<a href="https://wikimedia.org.uk/wiki/Website_Privacy_Policy" target="_blank">Privacy</a>
+				</div>
+				
+			</div>
+		</div>
+		<div style="border: 1px solid rgb(0, 0, 0); padding: 10px; display: none; position: absolute; background-color: rgb(238, 238, 238);" id="menu"><a id="download-menu" class="download-menu">Download QRpedia Code</a></div>
+		<script src="./home/jquery.min.js.téléchargement"></script>
+		<script>
+		//	Display the right-click menu	
+		$('#qr_area').bind("contextmenu", function(e) {
+			$('#menu').css({
+				top: e.pageY+'px',
+				left: e.pageX+'px'
+			}).show();
+
+			return false;
+		});
+
+		//	Close the right-click menu
+		$(document).ready(function() {
+
+			$('#menu').click(function() {
+				$('#menu').hide();
+			});
+			$(document).click(function() {
+				$('#menu').hide();
+			});
+
+		});
+
+		//	As a URL is typed or pasted
+		$('.url').each(function() {
+			// Save current value of element
+			$(this).data('oldVal', $(this).val());
+
+			// Look for changes in the value
+			$(this).bind("propertychange keyup input paste", function(event){
+				// If value has changed...
+				if ($(this).data('oldVal') != $(this).val()) {
+					// Updated stored value
+					$(this).data('oldVal', $(this).val());
+	
+					var original_URL = $(this).val();
+					if (original_URL.indexOf('wikipedia.org/wiki/') > 0)	//	Lazy way to see if it's a Wikipedia URL
+					{
+
+						var new_URL = original_URL.replace('wikipedia.org/wiki/','qrwp.org/');
+						var new_URL = new_URL.replace('https://','http://');
+
+						
+						//	Get the URL path
+						var url = document.createElement('a');
+						url.href = new_URL;
+						var path = url.pathname.replace('/','');
+						
+						//	Get the language of the article
+						var language = url.hostname.replace('.qrwp.org','');
+													
+						//	Add some text saying how many languages the article has
+						//	Call the Wikipedia API	
+						///
+						console.log(new_URL);
+						console.log(language);
+						console.log(path);
+
+						$.getJSON(
+							'https://'+language+'.wikipedia.org/w/api.php?format=json&callback=?',
+							{ 
+								'action': 'query', 'prop': 'pageprops', 'ppprop': 'wikibase_item', 'lllimit': 500, 'titles': decodeURIComponent(path), 'formatversion': 2 
+							}, 
+							function(data)
+							{		
+							for (var pageId in data.query.pages) 
+								{	
+									try {
+									target = data.query.pages[0].pageprops["wikibase_item"]
+									new_URL = window.location.href+"link?id="+target
+									//	Add the image to the page
+									$('.qr').attr('src','https://qrpedia.org/qr/php/qr.php?size=345&e=L&d='+encodeURIComponent(new_URL));
+						
+									//	Add the download link to the page
+									$('.download').attr('href','https://qrpedia.org/qr/php/qr.php?size=800&download='+path+'%20QRpedia&e=L&d='+encodeURIComponent(new_URL));
+
+									//	Add the download link to the right-click menu
+									$('.download-menu').attr('href','https://qrpedia.org/qr/php/qr.php?size=800&download='+path+'%20QRpedia&e=L&d='+encodeURIComponent(new_URL));
+									
+									//	Place the text on the page
+									$('div.language_area').text('The Wikipedia Article exists');
+									} catch (error) {
+									$('div.language_area').text('The Wikipedia Article does not exist');
+									$('.qr').attr('src', "./home/welcome_qr.png");
+									$('.download').attr('href','');
+									$('.download-menu').attr('href','');
+									}
+								}
+							
+							}
+								
+						); 
+					}
+				}
+			});
+ 		});
+
+
+		
+		$("#target").submit(function()
+		{
+			//	Nothing will happen if enter is pressed on the form.
+			return false;
+		});
+		
+		</script>
+	
+
+</body></html>
