@@ -6,8 +6,8 @@ This is a joint development project of [Wikimedia Tunisia](https://meta.wikimedi
 
 Following the same logic as QRPedia codes (qrpedia.org), Sawtpedia .
 ## Team
-* **Yamen Bousrih**, *Original idea*
-* **Houcemeddine Turki**, *Tool Development*
+* **[Yamen Bousrih](https://meta.wikimedia.org/wiki/User:Yamen)**, *Original idea*
+* **[Houcemeddine Turki](https://meta.wikimedia.org/wiki/User:Csisc)**, *Tool Development*
 ## Acknowledgements
 * Capacity Building about Web Development with Flask has been provided by Data Engineering and Semantics Research Unit, University of Sfax, Tunisia as a part of the Federated Research Project PRF-COV19-D1-P1.
 * We thank Terence Eden and Roger Bamkin for providing the [source](https://code.google.com/archive/p/qrwp/) codes of QRpedia. We were inspired from the QRpedia Principles and we have even reused several excerpts as well as the QRpedia web service for the generation of the QRCode from URL in our source codes. As we built Sawtpedia based on QRpedia, we use the MIT License for our source code and we adopt the [Website Privacy Policy](https://wikimedia.org.uk/wiki/Website_Privacy_Policy) of [Wikimedia UK](https://wikimedia.org.uk) for our tool.
