@@ -61,7 +61,8 @@ def home02():
            video = "errormessage"
      return redirect(video)
 
-app.run(debug=True, use_reloader=False)
+if __name__ == "__main__":
+    app.run(debug=True, use_reloader=False)
 
 
 
