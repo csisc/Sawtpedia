@@ -3,6 +3,9 @@ from flask import request, redirect, render_template, send_from_directory
 import requests
 import sys
 from SPARQLWrapper import SPARQLWrapper, JSON
+import gtts
+from gtts import gTTS
+import re
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
@@ -58,6 +61,56 @@ def home02():
        try:
            video = result["voice"]["value"]
        except KeyError:
+           video = "errormessage"
+     if (video == "errormessage"):    
+       if (preflg in gtts.lang.tts_langs()):
+           url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
+           #Getting the Lead of the Page
+           txt = url.text
+           if (txt.find('<div id="siteSub" class="noprint">From Wikidata</div>') < 0):
+               print(txt)
+               txt = txt[txt.find('<div id="mw-content-text"'):]
+               print(txt)
+               if (txt.find("<h2")>=0):
+                   txt = txt[txt.find("<p"):txt.find("<h2")]
+               else:
+                   txt = txt[txt.find("<p"):]
+               #Eliminating References
+               clean = re.compile('<sup id="cite.*?sup>')
+               txt = re.sub(clean, '', txt)
+               #Eliminating Styles
+               clean = re.compile('<style.*?style>')
+               txt = re.sub(clean, '', txt)
+               #Eliminating DIV (À réviser)
+               b = True
+               while (txt.find("<div") >= 0) and (b == True):
+                   div = txt[txt.find("<div"):]
+                   if (div.find("/div>") >= 0):
+                       div = div[:div.find("/div>")+5]
+                       print(div)
+                       txt = txt.replace(div, "")
+                       print(txt)
+                   else:
+                       b = False
+               #Eliminating Links
+               clean = re.compile('<a class="mw-jump-link".*?a>')
+               txt = re.sub(clean, '', txt)
+               #Eliminating Special Characters
+               clean = re.compile('&#.*?;')
+               txt = re.sub(clean, '', txt)
+               #Eliminating Tables and Infoboxes
+               if (txt.find("<table")>=0): txt = txt[:txt.find("<table")]+txt[txt.find("</table>"):]
+               #Stripping HTML Tags
+               clean = re.compile('<.*?>')
+               txt = re.sub(clean, '', txt)
+               print(txt)
+               #Generating Spoken Wikipedia File 
+               tts = gTTS(txt, lang=preflg)
+               video = "home/"+preflg+"-"+wd+".mp3"
+               tts.save(video)
+           else:
+               video = "errormessage"
+       else:
            video = "errormessage"
      return redirect(video)
 
