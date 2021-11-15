@@ -91,7 +91,7 @@ def home02():
                #Eliminating Styles
                clean = re.compile('<style.*?style>')
                txt = re.sub(clean, '', txt)
-               #Eliminating DIV (À réviser)
+               #Eliminating DIV
                b = True
                while (txt.find("<div") >= 0) and (b == True):
                    div = txt[txt.find("<div"):]
