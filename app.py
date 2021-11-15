@@ -6,6 +6,7 @@ from SPARQLWrapper import SPARQLWrapper, JSON
 import gtts
 from gtts import gTTS
 import re
+import os
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
@@ -64,6 +65,15 @@ def home02():
            video = "errormessage"
      if (video == "errormessage"):    
        if (preflg in gtts.lang.tts_langs()):
+           #Removing MP3 Files from the Wikimedia Cloud
+           directory = "./home"
+           files = os.listdir(directory)
+           filtered_files = [file for file in files if file.endswith(".mp3")]
+           for file in filtered_files:
+               path_to_file = os.path.join(directory, file)
+               os.remove(path_to_file)
+           print(filtered_files)
+           #Getting the Wikipedia article in the user language
            url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
            #Getting the Lead of the Page
            txt = url.text
