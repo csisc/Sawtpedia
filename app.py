@@ -75,7 +75,7 @@ def home02():
            filtered_files = [file for file in files if file.endswith(".mp3")]
            for file in filtered_files:
                path_to_file = os.path.join(directory, file)
-               if (timestamp - os.path.getmtime(path_to_file)) > 300): os.remove(path_to_file)
+               if ((timestamp - os.path.getmtime(path_to_file)) > 300): os.remove(path_to_file)
            print(filtered_files)
            #Getting the Wikipedia article in the user language
            url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
