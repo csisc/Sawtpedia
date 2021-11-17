@@ -7,6 +7,8 @@ import gtts
 from gtts import gTTS
 import re
 import os
+import os.path, time
+from datetime import datetime
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
@@ -66,12 +68,14 @@ def home02():
      if (video == "errormessage"):    
        if (preflg in gtts.lang.tts_langs()):
            #Removing MP3 Files from the Wikimedia Cloud
+           now = datetime.now()
+           timestamp = time.mktime(now.timetuple()) + now.microsecond/1e6
            directory = "./home"
            files = os.listdir(directory)
            filtered_files = [file for file in files if file.endswith(".mp3")]
            for file in filtered_files:
                path_to_file = os.path.join(directory, file)
-               os.remove(path_to_file)
+               if (timestamp - os.path.getmtime(path_to_file)) > 300): os.remove(path_to_file)
            print(filtered_files)
            #Getting the Wikipedia article in the user language
            url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
