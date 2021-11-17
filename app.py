@@ -81,7 +81,7 @@ def home02():
            url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
            #Getting the Lead of the Page
            txt = url.text
-           if (txt.find('<div id="siteSub" class="noprint">From Wikidata</div>') < 0):
+           if (txt.find('<div id="siteSub" class="noprint">From Wikidata</div>') < 0) and (txt.find('lang="'+preflg) >= 0):
                print(txt)
                txt = txt[txt.find('<div id="mw-content-text"'):]
                print(txt)
