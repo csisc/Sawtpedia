@@ -10,7 +10,7 @@ body
 	display: table;
 	height: 100%;
 	width: 100%;
-	background: url('../images/bg.png') repeat-x;
+	background: url('../home/bg.png') repeat-x;
 	margin: 0;
 }
 img
@@ -24,7 +24,7 @@ img
 }
 #wrapper
 {
-	background: url('../images/small_bg_world.png') no-repeat center;
+	background: url('../home/small_bg_world.png') no-repeat center;
 
 	width: 100%;
 	
