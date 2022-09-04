@@ -44,7 +44,9 @@ def home02():
      #Getting the Wikidata item of the concerned topic
      wd = request.args.get('id')
      #Recognizing the browser language
-     language = str(request.accept_languages)
+     lg = request.args.get('lang')
+     if (lg != ""):
+        language = str(request.accept_languages)
      languages = language.split(",")
      preflg = languages[0]
      if (preflg.find("-")>=0): preflg = preflg[:preflg.find("-")]
