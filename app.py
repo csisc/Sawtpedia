@@ -9,6 +9,8 @@ import re
 import os
 import os.path, time
 from datetime import datetime
+import wptools
+from bs4 import BeautifulSoup
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
@@ -80,48 +82,29 @@ def home02():
                if ((timestamp - os.path.getmtime(path_to_file)) > 300): os.remove(path_to_file)
            print(filtered_files)
            #Getting the Wikipedia article in the user language
-           url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg)
+           url = requests.get("https://hub.toolforge.org/"+ wd +"?lang=" + preflg + "&format=json")
            #Getting the Lead of the Page
-           txt = url.text
-           if (txt.find('<div id="siteSub" class="noprint">From Wikidata</div>') < 0) and (txt.find('lang="'+preflg) >= 0):
-               print(txt)
-               txt = txt[txt.find('<div id="mw-content-text"'):]
-               print(txt)
-               if (txt.find("<h2")>=0):
-                   txt = txt[txt.find("<p"):txt.find("<h2")]
-               else:
-                   txt = txt[txt.find("<p"):]
-               #Eliminating References
-               clean = re.compile('<sup id="cite.*?sup>')
-               txt = re.sub(clean, '', txt)
-               #Eliminating Styles
-               clean = re.compile('<style.*?style>')
-               txt = re.sub(clean, '', txt)
-               #Eliminating DIV
-               b = True
-               while (txt.find("<div") >= 0) and (b == True):
-                   div = txt[txt.find("<div"):]
-                   if (div.find("/div>") >= 0):
-                       div = div[:div.find("/div>")+5]
-                       print(div)
-                       txt = txt.replace(div, "")
-                       print(txt)
-                   else:
-                       b = False
-               #Eliminating Links
-               clean = re.compile('<a class="mw-jump-link".*?a>')
-               txt = re.sub(clean, '', txt)
-               #Eliminating Special Characters
-               clean = re.compile('&#.*?;')
-               txt = re.sub(clean, '', txt)
-               #Eliminating Tables and Infoboxes
-               if (txt.find("<table")>=0): txt = txt[:txt.find("<table")]+txt[txt.find("</table>"):]
-               #Stripping HTML Tags
-               clean = re.compile('<.*?>')
-               txt = re.sub(clean, '', txt)
-               print(txt)
+           try:
+               title = url.json()["destination"]["preferedSitelink"]["title"]
+           except:
+               title = ""
+           page = wptools.page(title, lang=preflg)
+           cond = True
+           try:
+               s = page.get_query()
+           except:
+               cond = False
+           if (cond == True):
+               v = s.data.get("extract")
+               #Cleaning the text
+               soup = BeautifulSoup(v)
+               text = soup.get_text()
+               text = text.replace("\n", " ")
+               text = text.replace("\'", '"')
+               text = text.replace('"', "'")
+               text = text.replace("\xa0", " ")
                #Generating Spoken Wikipedia File 
-               tts = gTTS(txt, lang=preflg)
+               tts = gTTS(text, lang=preflg)
                video = "home/"+preflg+"-"+wd+".mp3"
                tts.save(video)
            else:
