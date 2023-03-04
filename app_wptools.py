@@ -47,11 +47,13 @@ def home02():
      wd = request.args.get('id')
      #Recognizing the browser language
      lg = request.args.get('lang')
-     if (lg != ""):
+     if (lg == None):
         language = str(request.accept_languages)
-     languages = language.split(",")
-     preflg = languages[0]
-     if (preflg.find("-")>=0): preflg = preflg[:preflg.find("-")]
+        languages = language.split(",")
+        preflg = languages[0]
+     else:
+        preflg = lg
+     if (preflg.find("-")>=0): preflg = preflg[:preflg.find("-")]  
      #Finding the Wikidata item of the browser language
      url = 'https://hub.toolforge.org/P305:'+preflg+'?format=json'
      wdrequest = requests.get(url)
