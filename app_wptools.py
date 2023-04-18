@@ -9,7 +9,7 @@ import re
 import os
 import os.path, time
 from datetime import datetime
-import wptools
+import wikipedia
 from bs4 import BeautifulSoup
 
 #Defining the SPARQL Endopoint of Wikidata
@@ -90,10 +90,10 @@ def home02():
                title = url.json()["destination"]["preferedSitelink"]["title"]
            except:
                title = ""
-           page = wptools.page(title, lang=preflg)
+           wikipedia.set_lang(preflg)
            cond = True
            try:
-               s = page.get_query()
+               page = wikipedia.summary(title)
            except:
                cond = False
            if (cond == True):
