@@ -11,6 +11,7 @@ The tool uses the same principle as QRpedia. However, we have updated the projec
 * [Requests](https://pypi.org/project/requests/) 2.26.0
 * [SPARQLWrapper](https://pypi.org/project/SPARQLWrapper/) 1.8.5
 * [gTTS](https://pypi.org/project/gTTS/) 2.2.3
+* [Wikipedia](https://github.com/goldsmith/Wikipedia) 1.4.0
 ## Team
 * **[Yamen Bousrih](https://meta.wikimedia.org/wiki/User:Yamen)**, *Original idea*
 * **[Houcemeddine Turki](https://meta.wikimedia.org/wiki/User:Csisc)**, *Tool Development*
