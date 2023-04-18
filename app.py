@@ -10,7 +10,6 @@ import os
 import os.path, time
 from datetime import datetime
 import wikipedia
-from bs4 import BeautifulSoup
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
