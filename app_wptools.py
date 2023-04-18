@@ -97,11 +97,8 @@ def home02():
            except:
                cond = False
            if (cond == True):
-               v = s.data.get("extract")
                #Cleaning the text
-               soup = BeautifulSoup(v)
-               text = soup.get_text()
-               text = text.replace("\n", " ")
+               text = page.replace("\n", " ")
                text = text.replace("\'", '"')
                text = text.replace('"', "'")
                text = text.replace("\xa0", " ")
