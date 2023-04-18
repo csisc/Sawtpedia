@@ -3,3 +3,4 @@ Flask==2.0.2
 Requests==2.26.0
 SPARQLWrapper==1.8.5
 gTTS==2.2.3
+wikipedia==1.4.0
