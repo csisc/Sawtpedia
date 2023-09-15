@@ -10,6 +10,7 @@ import os
 import os.path, time
 from datetime import datetime
 import wikipedia
+from pydub import AudioSegment
 
 #Defining the SPARQL Endopoint of Wikidata
 endpoint_url = "https://query.wikidata.org/sparql"
@@ -70,6 +71,10 @@ def home02():
            video = result["voice"]["value"]
        except KeyError:
            video = "errormessage"
+     if (video.find(".ogg") > 0):
+       ogg_version = AudioSegment.from_ogg(video)
+       video = video[video.rfind("/")+1: video.rfind(".ogg")]+".mp3"
+       ogg_version.export(video, format="mp3")
      if (video == "errormessage"):    
        if (preflg in gtts.lang.tts_langs()):
            #Removing MP3 Files from the Wikimedia Cloud
