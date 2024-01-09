@@ -71,6 +71,7 @@ def home02():
        except KeyError:
            video = "errormessage"
      if (video != "errormessage"):
+         req = requests.get(video).url
          video = video.replace("/wikipedia/commons/", "/wikipedia/commons/transcoded/")
          video += video[video.rfind("/"):] + ".mp3"
      if (video == "errormessage"):    
