@@ -70,6 +70,9 @@ def home02():
            video = result["voice"]["value"]
        except KeyError:
            video = "errormessage"
+     if (video != "errormessage"):
+         video = video.replace("/wikipedia/commons/", "/wikipedia/commons/transcoded/")
+         video += video[video.rfind("/"):] + ".mp3"
      if (video == "errormessage"):    
        if (preflg in gtts.lang.tts_langs()):
            #Removing MP3 Files from the Wikimedia Cloud
